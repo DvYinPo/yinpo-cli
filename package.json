@@ -1,10 +1,15 @@
 {
-  "name": "cli-beta",
-  "version": "1.0.0",
+  "name": "create-yinpo-cli",
+  "version": "0.0.3",
   "description": "build project structure quickly",
   "bin": {
-    "create-yinpo-cli": "dist/index.js"
+    "create-yinpo-cli": "index.js"
   },
+  "files": [
+    "index.js",
+    "dist/",
+    "templates/"
+  ],
   "engines": {
     "node": ">=16"
   },
