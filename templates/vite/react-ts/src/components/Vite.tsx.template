@@ -1,0 +1,23 @@
+{%TEMPLATE-START-reactRoute%}
+import viteLogo from '/vite.svg'
+import '../App.css'
+
+function Vite() {
+
+  return (
+    <>
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+      </div>
+      <h1>Route: Vite</h1>
+      <p className="read-the-docs">
+        Click on the Vite logos to learn more
+      </p>
+    </>
+  )
+}
+
+export default Vite
+{%TEMPLATE-END-reactRoute%}

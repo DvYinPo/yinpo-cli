@@ -1,0 +1,14 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+{%TEMPLATE-START-reactRoute%}import Router from './routes'{%TEMPLATE-ELSE-reactRoute%}import App from './App.tsx'{%TEMPLATE-END-reactRoute%}
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    {%TEMPLATE-START-reactRoute%}
+    <Router />
+    {%TEMPLATE-ELSE-reactRoute%}
+    <App />
+    {%TEMPLATE-END-reactRoute%}
+  </React.StrictMode>,
+)

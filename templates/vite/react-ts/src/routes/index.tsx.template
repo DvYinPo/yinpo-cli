@@ -1,0 +1,27 @@
+{%TEMPLATE-START-reactRoute%}
+import {
+  Route,
+  Routes,
+  BrowserRouter,
+  Navigate
+} from "react-router-dom";
+
+// 导入其他组件
+import Vite from '../components/Vite';
+import ReactComponent from '../components/React';
+import NotFound from '../components/404';
+import App from '../App';
+
+const Router = () => {
+  return <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/vite" element={<Vite />} />
+      <Route path="/react" element={<ReactComponent />} />
+      <Route path="/404" element={<NotFound />} />
+      <Route path="*" element={<Navigate to="404" />} />
+    </Routes>
+  </BrowserRouter>
+}
+export default Router;
+{%TEMPLATE-END-reactRoute%}
