@@ -7,10 +7,10 @@ import {
 } from "react-router-dom";
 
 // 导入其他组件
-import Vite from '../components/Vite';
-import ReactComponent from '../components/React';
-import NotFound from '../components/404';
-import App from '../App';
+import Vite from '@/components/Vite';
+import ReactComponent from '@/components/React';
+import NotFound from '@/components/404';
+import App from '@/App';
 
 const Router = () => {
   return <BrowserRouter>

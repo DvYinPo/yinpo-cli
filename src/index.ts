@@ -46,7 +46,7 @@ import generate from './generate.js';
         ]
         const react = [
           Choice.reactRoute({ selected: true }),
-          Choice.styleComponents(),
+          Choice.styledComponents(),
           Choice.redux(),
           Choice.materialUI(),
           Choice.antDesign(),

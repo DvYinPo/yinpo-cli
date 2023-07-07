@@ -1,6 +1,6 @@
 {%TEMPLATE-START-reactRoute%}
 import viteLogo from '/vite.svg'
-import '../App.css'
+import '@/App.css'
 
 function Vite() {
 

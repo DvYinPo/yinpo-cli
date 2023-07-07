@@ -1,6 +1,6 @@
 {
   "name": "create-yinpo-cli",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "build project structure quickly",
   "repository": {
     "type": "git",
@@ -20,7 +20,8 @@
   "type": "module",
   "scripts": {
     "prepare": "husky install",
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "ts-node src/index.ts"
   },
   "keywords": [
     "cli"

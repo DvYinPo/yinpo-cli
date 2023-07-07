@@ -18,6 +18,6 @@ export default {
   antDesign: (option?: optionType): Choice => ({ title: "ant-design", value: "antDesign", ...option }),
   materialUI: (option?: optionType): Choice => ({ title: "material UI", value: "mui", ...option }),
   element: (option?: optionType): Choice => ({ title: "element UI", value: "element", ...option }),
-  styleComponents: (option?: optionType): Choice => ({ title: "style-components", value: "styleComponents", ...option }),
+  styledComponents: (option?: optionType): Choice => ({ title: "styled-components", value: "styledComponents", ...option }),
   axios: (option?: optionType): Choice => ({ title: "axios", value: "axios", ...option }),
 }
