@@ -7,7 +7,6 @@ checkResult=$?
 while read local_ref local_sha remote_ref remote_sha
 do
     branch_name="${remote_ref##refs/heads/}"
-    echo "Pushing to $branch_name"
 
     # 如果分支名称为 'main' ，则执行特定逻辑
     if [[ "$branch_name" == "main" ]]; then
