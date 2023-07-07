@@ -2,6 +2,10 @@
   "name": "create-yinpo-cli",
   "version": "0.0.4",
   "description": "build project structure quickly",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DvYinPo/yinpo-cli"
+  },
   "bin": {
     "create-yinpo-cli": "index.js"
   },
@@ -15,6 +19,7 @@
   },
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
     "build": "tsc"
   },
   "keywords": [
@@ -24,6 +29,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.2.0",
+    "child_process": "^1.0.2",
     "minimist": "^1.2.8",
     "ora": "^5.4.1",
     "prompts": "^2.4.2"
@@ -32,7 +38,7 @@
     "@types/minimist": "^1.2.2",
     "@types/node": "^20.3.2",
     "@types/prompts": "^2.4.4",
-    "prettier": "^3.0.0",
+    "husky": "^8.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"
   }
