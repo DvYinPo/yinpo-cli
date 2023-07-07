@@ -5,6 +5,7 @@ import minimist from "minimist";
 import fs from "fs";
 import chalk from "chalk";
 import { isEmpty, resolveTemplateByConfig } from "./utils.js";
+import { fileURLToPath } from 'node:url'
 
 interface configType {
   buildTool: string;
@@ -18,8 +19,9 @@ const generate = (config: configType) => {
   const isTS = config.plugins.includes(Choice.typescript().value)
   const cwd = process.cwd()
 
-  const templateDir = path.join(
-    cwd,
+  const templateDir = path.resolve(
+    fileURLToPath(import.meta.url),
+    '../..',
     'templates',
     `${config.buildTool}/${config.frame}${isTS ? '-ts' : ''}`,)
 
