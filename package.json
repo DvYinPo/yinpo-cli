@@ -1,6 +1,6 @@
 {
   "name": "create-yinpo-cli",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "build project structure quickly",
   "repository": {
     "type": "git",

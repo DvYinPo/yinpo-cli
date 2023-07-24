@@ -3,6 +3,11 @@ import Loading from './Loading.js'
 import prompts from 'prompts'
 import Choice from './Choice.js';
 import generate from './generate.js';
+import minimist from "minimist";
+
+
+const arg = minimist(process.argv.slice(2))['_'];
+let projectName = arg[0]?.trim().replace(/\/+$/g, '');
 
 (async () => {
   const start = await prompts({
@@ -13,6 +18,15 @@ import generate from './generate.js';
   })
 
   if (!start.ready) return false
+
+  if (!projectName) {
+    const { name } = await prompts({
+      type: 'text',
+      name: 'name',
+      message: '请输入项目名：',
+    });
+    projectName = name;
+  }
 
   let config: prompts.Answers<"buildTool" | "frame" | "plugins">
   try {
@@ -93,5 +107,5 @@ import generate from './generate.js';
     return false
   }
 
-  generate(config)
+  generate(Object.assign(config, { projectName }))
 })();

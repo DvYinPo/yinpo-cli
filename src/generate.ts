@@ -1,7 +1,6 @@
 import path from "path";
 import Choice from "./Choice.js";
 import Loading from "./Loading.js";
-import minimist from "minimist";
 import fs from "fs";
 import chalk from "chalk";
 import { isEmpty, resolveTemplateByConfig } from "./utils.js";
@@ -11,6 +10,7 @@ interface configType {
   buildTool: string;
   frame: string;
   plugins: string[];
+  projectName: string;
 }
 
 const generate = (config: configType) => {
@@ -25,8 +25,7 @@ const generate = (config: configType) => {
     'templates',
     `${config.buildTool}/${config.frame}${isTS ? '-ts' : ''}`,)
 
-  const arg = minimist(process.argv.slice(2))['_']
-  const projectName = arg[0]?.trim().replace(/\/+$/g, '') || `my-project${isTS ? '-ts' : ''}`
+  const projectName = config.projectName
   const projectPath = path.join(cwd, projectName)
 
   // 目录同名检测

@@ -3,6 +3,9 @@ import Loading from './Loading.js';
 import prompts from 'prompts';
 import Choice from './Choice.js';
 import generate from './generate.js';
+import minimist from "minimist";
+const arg = minimist(process.argv.slice(2))['_'];
+let projectName = arg[0]?.trim().replace(/\/+$/g, '');
 (async () => {
     const start = await prompts({
         type: 'confirm',
@@ -12,6 +15,14 @@ import generate from './generate.js';
     });
     if (!start.ready)
         return false;
+    if (!projectName) {
+        const { name } = await prompts({
+            type: 'text',
+            name: 'name',
+            message: '请输入项目名：',
+        });
+        projectName = name;
+    }
     let config;
     try {
         config = await prompts([{
@@ -87,5 +98,5 @@ import generate from './generate.js';
         Loading("已取消！").fail();
         return false;
     }
-    generate(config);
+    generate(Object.assign(config, { projectName }));
 })();

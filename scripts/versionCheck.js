@@ -12,6 +12,6 @@ const latestVersion = execSync(`npm show ${repository} version`).toString().trim
 // 比较版本号
 if (currentVersion === latestVersion) {
   // 版本一致，不能执行push操作
-  console.log('The local version is already up to date. please update package version before push');
+  console.log('\nThe local version is already up to date. please update package version before push!\n');
   process.exit(1)
 }

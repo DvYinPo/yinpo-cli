@@ -1,17 +1,16 @@
 import path from "path";
 import Choice from "./Choice.js";
 import Loading from "./Loading.js";
-import minimist from "minimist";
 import fs from "fs";
 import chalk from "chalk";
 import { isEmpty, resolveTemplateByConfig } from "./utils.js";
+import { fileURLToPath } from 'node:url';
 const generate = (config) => {
     const l = Loading("正在生成项目框架...");
     const isTS = config.plugins.includes(Choice.typescript().value);
     const cwd = process.cwd();
-    const templateDir = path.join(cwd, 'templates', `${config.buildTool}/${config.frame}${isTS ? '-ts' : ''}`);
-    const arg = minimist(process.argv.slice(2))['_'];
-    const projectName = arg[0]?.trim().replace(/\/+$/g, '') || `my-project${isTS ? '-ts' : ''}`;
+    const templateDir = path.resolve(fileURLToPath(import.meta.url), '../..', 'templates', `${config.buildTool}/${config.frame}${isTS ? '-ts' : ''}`);
+    const projectName = config.projectName;
     const projectPath = path.join(cwd, projectName);
     // 目录同名检测
     if (fs.existsSync(projectName)) {
