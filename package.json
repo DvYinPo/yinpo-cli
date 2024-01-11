@@ -4,7 +4,7 @@
   "description": "build project structure quickly",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DvYinPo/yinpo-cli"
+    "url": "https://github.com/JF-Just-Fun/yinpo-cli"
   },
   "bin": {
     "create-yinpo-cli": "index.js",
