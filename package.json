@@ -31,7 +31,6 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.2.0",
-    "child_process": "^1.0.2",
     "minimist": "^1.2.8",
     "ora": "^5.4.1",
     "prompts": "^2.4.2"
