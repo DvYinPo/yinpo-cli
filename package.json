@@ -1,28 +1,28 @@
 {
   "name": "create-yinpo-cli",
-  "version": "0.0.10",
+  "version": "0.0.9",
   "description": "build project structure quickly",
   "repository": {
     "type": "git",
     "url": "https://github.com/JF-Just-Fun/yinpo-cli"
   },
   "bin": {
-    "create-yinpo-cli": "index.js",
-    "create-yinpo/cli": "index.js"
+    "create-yinpo-web": "outfile.js",
+    "create-yinpo-cli": "outfile.js"
   },
   "files": [
-    "index.js",
-    "dist/",
+    "outfile.js",
     "templates/"
   ],
   "engines": {
     "node": ">=16"
   },
-  "type": "module",
   "scripts": {
     "prepare": "husky install",
-    "build": "tsc",
-    "dev": "ts-node src/index.ts"
+    "check": "node scripts/versionCheck.cjs",
+    "build": "tsx esbuild.ts",
+    "dev": "tsx src/index.ts",
+    "pub": "npm version patch"
   },
   "keywords": [
     "cli"
@@ -40,9 +40,10 @@
     "@types/minimist": "^1.2.2",
     "@types/node": "^20.3.2",
     "@types/prompts": "^2.4.4",
-    "@yinpo/node-scripts": "^0.0.5",
+    "@yinpo/node-scripts": "^0.0.6",
+    "esbuild": "^0.19.11",
     "husky": "^8.0.3",
-    "ts-node": "^10.9.1",
+    "tsx": "^4.7.0",
     "typescript": "^5.1.3"
   }
 }

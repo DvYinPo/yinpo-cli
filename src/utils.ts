@@ -1,7 +1,16 @@
 import fs from 'fs';
 import path from 'path';
 
-export function isEmpty(path: string) {
+/**
+ * 判断给定目录是否为空
+ * @param {string} dir - 目录路径
+ * @returns {boolean} 如果目录为空则返回true，否则返回false
+ */
+export function isEmptyDir(path: string) {
+  if (!fs.existsSync(path)) {
+    return true
+  }
+
   const files = fs.readdirSync(path)
   return files.length === 0 || (files.length === 1 && files[0] === '.git')
 }
@@ -11,9 +20,6 @@ export function emptyDir(dir: string) {
     return
   }
   for (const file of fs.readdirSync(dir)) {
-    if (file === '.git') {
-      continue
-    }
     fs.rmSync(path.resolve(dir, file), { recursive: true, force: true })
   }
 }
@@ -55,13 +61,17 @@ export function extractTemplate(content: string, key: string, which: boolean): s
       i += elseTag.length;
     } else if (content.slice(i, i + endTag.length) === endTag) {
       currentNode.hasEnd = currentNode.hasStart;
-      currentNode.valid = currentNode.hasStart && currentNode.hasEnd;
+      currentNode.valid = Boolean(currentNode.hasStart && currentNode.hasEnd);
 
       if (!currentNode.valid) {
         new Error(`模板内容非法，请注意模板格式：\n\n${startTag} xxx ${elseTag} xxx ${endTag}\n`)
       }
 
       const prev = stack.pop()
+      if (!prev) {
+        new Error(`模板内容非法，请注意模板格式：\n\n${startTag} xxx ${elseTag} xxx ${endTag}\n`)
+        return ''
+      }
       if (!prev.inTagAndNeedSkip) prev.text += currentNode.text
       currentNode = prev
       i += endTag.length;
@@ -74,7 +84,7 @@ export function extractTemplate(content: string, key: string, which: boolean): s
   return currentNode.text;
 }
 
-export function resolveTemplateByConfig(templateData: string, config: {}) {
+export function resolveTemplateByConfig(templateData: string, config: {[key: string]: boolean}) {
   return Object.keys(config).reduce((res, key) => {
     return extractTemplate(res, key, config[key])
   }, templateData)

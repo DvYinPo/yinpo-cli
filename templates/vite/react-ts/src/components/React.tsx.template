@@ -1,5 +1,4 @@
-{%TEMPLATE-START-reactRoute%}
-import reactLogo from '@/assets/react.svg'
+{%TEMPLATE-START-reactRoute%}import reactLogo from '@/assets/react.svg'
 import '@/App.css'
 
 function React() {

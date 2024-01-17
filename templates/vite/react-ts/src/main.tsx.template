@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import '@/index.css'
-{%TEMPLATE-START-reactRoute%}import Router from '@/routes'{%TEMPLATE-ELSE-reactRoute%}import App from '@/App.tsx'{%TEMPLATE-END-reactRoute%}
+import '@/index.css'{%TEMPLATE-START-reactRoute%}
+import Router from '@/routes'{%TEMPLATE-ELSE-reactRoute%}
+import App from '@/App.tsx'{%TEMPLATE-END-reactRoute%}
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

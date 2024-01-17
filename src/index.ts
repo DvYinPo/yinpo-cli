@@ -1,13 +1,17 @@
-import chalk from 'chalk'
-import Loading from './Loading.js'
-import prompts from 'prompts'
-import Choice from './Choice.js';
-import generate from './generate.js';
-import minimist from "minimist";
+#!/usr/bin/env node
 
+import chalk from 'chalk'
+import Loading from './Loading'
+import prompts from 'prompts'
+import Choice from './Choice';
+import generate from './generate';
+import minimist from "minimist";
+import path from 'node:path';
+import { isEmptyDir, emptyDir } from './utils';
 
 const arg = minimist(process.argv.slice(2))['_'];
 let projectName = arg[0]?.trim().replace(/\/+$/g, '');
+const cwd = process.cwd();
 
 (async () => {
   const start = await prompts({
@@ -19,18 +23,35 @@ let projectName = arg[0]?.trim().replace(/\/+$/g, '');
 
   if (!start.ready) return false
 
-  if (!projectName) {
-    const { name } = await prompts({
+  let config: prompts.Answers<"name" | "buildTool" | "frame" | "plugins">
+  try {
+    config = await prompts([{
       type: 'text',
       name: 'name',
       message: '请输入项目名：',
-    });
-    projectName = name;
-  }
-
-  let config: prompts.Answers<"buildTool" | "frame" | "plugins">
-  try {
-    config = await prompts([{
+      validate: (name) => {
+        if (name.trim().length === 0) {
+          return '项目名不能为空';
+        }
+        projectName = name;
+        return true
+      }
+    },
+    {
+      name: 'overwrite',
+      type: (prev: string) => isEmptyDir(prev) ? null : 'toggle',
+      message: (prev: string) => `存在非空目录${prev}, 是否覆盖？`,
+      inactive: '否',
+      active: '是',
+      initial: false,
+      onState: (state: any) => {
+        if (!state.value) {
+          console.error(chalk.bold.red('\n✖'), ' 操作终止！')
+          process.exit(1)
+        }
+      }
+    },
+    {
       type: 'select',
       name: 'buildTool',
       message: '请选择项目构建工具？',
@@ -80,7 +101,7 @@ let projectName = arg[0]?.trim().replace(/\/+$/g, '');
         return []
       },
       hint: "Choose what you are best at",
-    }]);
+      }]);
   } catch (error: any) {
     console.log(chalk.red(error.message))
     return
@@ -91,21 +112,15 @@ let projectName = arg[0]?.trim().replace(/\/+$/g, '');
     return
   }
 
-  const end = await prompts({
-    type: 'confirm',
-    name: 'confirm',
-    message: `请确认所选配置：
-  构建工具：${config.buildTool}
-  项目框架：${config.frame}
-  编程语言：${config.plugins.includes(Choice.typescript().value) ? 'typescript' : 'javascript'}
-  插件：${config.plugins}\n`,
-    initial: true
-  })
+  const isTS = config.plugins.includes(Choice.typescript().value)
+  const templateDir = path.resolve(
+    __dirname,
+    '..',
+    'templates',
+    `${config.buildTool}/${config.frame}${isTS ? '-ts' : ''}`,)
+  const projectPath = path.join(cwd, projectName)
 
-  if (!end.confirm) {
-    Loading("已取消！").fail()
-    return false
-  }
+  emptyDir(projectPath)
 
-  generate(Object.assign(config, { projectName }))
+  generate(templateDir, projectPath, Object.assign(config, { projectName }))
 })();

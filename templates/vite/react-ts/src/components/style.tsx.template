@@ -1,5 +1,4 @@
-{%TEMPLATE-START-styledComponents%}
-import { styled } from "styled-components";
+{%TEMPLATE-START-styledComponents%}import { styled } from "styled-components";
 
 export const ALink = styled.a`
   color: red;

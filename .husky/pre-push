@@ -1,6 +1,6 @@
 #!/bin/sh
 
-node "scripts/versionCheck.js"
+node "scripts/versionCheck.cjs"
 
 checkResult=$?
 

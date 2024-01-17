@@ -1,10 +1,9 @@
 import path from "path";
-import Choice from "./Choice.js";
-import Loading from "./Loading.js";
+import Choice from "./Choice";
+import Loading from "./Loading";
 import fs from "fs";
 import chalk from "chalk";
-import { isEmpty, resolveTemplateByConfig } from "./utils.js";
-import { fileURLToPath } from 'node:url'
+import { isEmptyDir, resolveTemplateByConfig } from "./utils";
 
 interface configType {
   buildTool: string;
@@ -13,31 +12,14 @@ interface configType {
   projectName: string;
 }
 
-const generate = (config: configType) => {
+const generate = (templateDir: string, target: string, config: configType) => {
   const l = Loading("正在生成项目框架...")
-
-  const isTS = config.plugins.includes(Choice.typescript().value)
-  const cwd = process.cwd()
-
-  const templateDir = path.resolve(
-    fileURLToPath(import.meta.url),
-    '../..',
-    'templates',
-    `${config.buildTool}/${config.frame}${isTS ? '-ts' : ''}`,)
-
   const projectName = config.projectName
-  const projectPath = path.join(cwd, projectName)
-
-  // 目录同名检测
-  if (fs.existsSync(projectName)) {
-    l.fail(chalk.italic.bold(`项目创建失败，当前路径存在${chalk.red(projectName)}同名目录`))
-    return false
-  }
 
   const configMap = Object.keys(Choice).reduce((acc, item) => {
     acc[item] = config.plugins.includes(item)
     return acc
-  }, {})
+  }, {} as {[key: string]: boolean})
 
   const copyFolder = (sourcePath: string, destinationPath: string) => {
     fs.mkdirSync(destinationPath, { recursive: true });
@@ -67,10 +49,10 @@ const generate = (config: configType) => {
       }
     });
 
-    if (isEmpty(destinationPath)) fs.rmSync(destinationPath, { recursive: true, force: true });
+    if (isEmptyDir(destinationPath)) fs.rmSync(destinationPath, { recursive: true, force: true });
   }
 
-  copyFolder(templateDir, projectPath)
+  copyFolder(templateDir, target)
 
   const succeedText = `\n
     项目生成成功！运行以下指令：

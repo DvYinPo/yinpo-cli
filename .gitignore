@@ -1,5 +1,7 @@
 # Dependency directories
 node_modules/
+outfile.js
+asd
 
 # Logs
 logs

@@ -14,7 +14,7 @@ const Loading = (option: OraParamsType): Ora => {
 
 
   const timer = setInterval(() => {
-    spinner.color = color.pop()
+    spinner.color = color.pop() || 'black'
     color.unshift(spinner.color)
   }, 1000)
 

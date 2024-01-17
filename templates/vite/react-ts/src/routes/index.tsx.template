@@ -1,5 +1,4 @@
-{%TEMPLATE-START-reactRoute%}
-import {
+{%TEMPLATE-START-reactRoute%}import {
   Route,
   Routes,
   BrowserRouter,
