@@ -108,7 +108,7 @@
   },
   "include": [
     "src/*.ts"
-  ],
+, "index.ts"  ],
   "exclude": ["templates/*"],
   "ts-node": {
     "esm": true

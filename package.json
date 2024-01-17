@@ -21,7 +21,7 @@
     "prepare": "husky install",
     "check": "node scripts/versionCheck.cjs",
     "build": "tsx esbuild.ts",
-    "dev": "tsx src/index.ts",
+    "dev": "tsx index.ts",
     "pub": "npm version patch"
   },
   "keywords": [

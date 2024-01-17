@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk'
-import Loading from './Loading'
 import prompts from 'prompts'
-import Choice from './Choice';
-import generate from './generate';
+import Choice from './src/Choice';
+import generate from './src/generate';
 import minimist from "minimist";
 import path from 'node:path';
-import { isEmptyDir, emptyDir } from './utils';
+import { isEmptyDir, emptyDir } from './src/utils';
 
 const arg = minimist(process.argv.slice(2))['_'];
 let projectName = arg[0]?.trim().replace(/\/+$/g, '');
@@ -115,8 +114,7 @@ const cwd = process.cwd();
   const isTS = config.plugins.includes(Choice.typescript().value)
   const templateDir = path.resolve(
     __dirname,
-    '..',
-    'templates',
+    './templates',
     `${config.buildTool}/${config.frame}${isTS ? '-ts' : ''}`,)
   const projectPath = path.join(cwd, projectName)
 
