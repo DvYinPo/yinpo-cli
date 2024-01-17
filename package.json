@@ -40,7 +40,7 @@
     "@types/minimist": "^1.2.2",
     "@types/node": "^20.3.2",
     "@types/prompts": "^2.4.4",
-    "@yinpo/node-scripts": "^0.0.6",
+    "@yinpo/node-scripts": "^0.0.7",
     "esbuild": "^0.19.11",
     "husky": "^8.0.3",
     "tsx": "^4.7.0",
