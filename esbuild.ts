@@ -1,7 +1,7 @@
 import esbuild from 'esbuild'
 
 esbuild.build({
-  entryPoints: ['src/index.ts'],
+  entryPoints: ['index.ts'],
   bundle: true,
   minify: true,
   sourcemap: false,
